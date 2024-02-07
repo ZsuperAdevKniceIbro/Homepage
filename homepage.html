@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url('https://source.unsplash.com/1600x900/?nature');
+      background-attachment: fixed; /* Ensures the background image stays fixed */
+      height: 100vh; /* Set the height of the body to fill the viewport */
+    }
+    .container {
+      text-align: center;
+      color: #fff;
+      padding-top: 50px;
+    }
+    .zoogle {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #4285F4; /* Google Blue */
+    }
+    .zoogle span:nth-child(1) { color: #4285F4; }
+    .zoogle span:nth-child(2) { color: #ea4335; }
+    .zoogle span:nth-child(3) { color: #fbbc05; }
+    .zoogle span:nth-child(4) { color: #4285F4; }
+    .zoogle span:nth-child(5) { color: #34a853; }
+    .zoogle span:nth-child(6) { color: #ea4335; }
+    .search-container {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      width: 200px;
+    }
+    .search-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 20px;
+      background-color: #4285F4; /* Google Blue */
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .search-button:hover {
+      background-color: #3a76e0; /* Darker shade of Google Blue */
+    }
+    .bookmark-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+    .bookmark {
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .bookmark h3 {
+      margin-top: 10px; /* Add some top margin */
+      font-size: 1em;
+      color: #000;
+    }
+    .bookmark img {
+      max-width: 100%;
+      max-height: 80px;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+    }
+    .popup-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+    .close-popup {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="zoogle"><span>Z</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></h1>
+    <div class="search-container">
+      <form id="searchForm">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button type="submit" class="search-button">Search</button>
+      </form>
+    </div>
+    <div class="bookmark-container" id="bookmarkContainer">
+      <!-- Existing bookmarks will be added dynamically -->
+      <div class="bookmark" onclick="openLink('https://www.google.com/')">
+        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_160x56dp.png" alt="Google">
+        <h3>Google</h3>
+      </div>
+      <div class="bookmark" onclick="openLink('https://www.youtube.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/langfr-280px-YouTube_Logo_2017.svg.png" alt="YouTube">
+        <h3 style="margin-top: 5px;">YouTube</h3>
+      </div>
+      <div class="bookmark" onclick="openLink('https://www.animeuploader.com/')">
+        <img src="https://www.animeuploader.com/wp-content/uploads/2020/03/cropped-cropped-au-logo-e1574681506389-2.png" alt="Anime Uploader">
+        <h3>Anime Uploader</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup for adding bookmarks -->
+  <div class="popup" id="addBookmarkPopup">
+    <div class="popup-content">
+      <span class="close-popup" id="closePopup">&times;</span>
+      <h2>Add Bookmark</h2>
+      <input type="text" id="bookmarkName" placeholder="Bookmark Name">
+      <input type="text" id="bookmarkURL" placeholder="Bookmark URL">
+      <button onclick="addBookmark()">Add Bookmark</button>
+    </div>
+  </div>
+
+  <script>
+    // Function to open link
+    function openLink(url) {
+      window.open(url, '_blank');
+    }
+
+    // Function to toggle popup
+    function togglePopup() {
+      var popup = document.getElementById('addBookmarkPopup');
+      popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'block' : 'none';
